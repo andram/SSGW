@@ -209,7 +209,7 @@ def SSGW(kd,kH2, N=2048, tol=1e-14):
         plt.ylabel('$\eta / d$')
  
     plt.title('Free Surface')
-    plt.legend()
+    plt.legend(loc="upper right")
 
     plt.subplot(212)
     plt.semilogy(np.arange(2*N),abs(np.fft.fft(zs.imag)))

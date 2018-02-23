@@ -3,3 +3,5 @@
 .ipynb_checkpoints
 Untitled*.ipynb
 *.bak
+*.nbgrader.log
+__pycache__
