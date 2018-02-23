@@ -55,6 +55,8 @@ def SSGW(kd,kH2, N=2048, tol=1e-14):
     Authors: D. Clamond & D. Dutykh.
     Version: 2017-02-08.
 
+    Converted to Python by Andreas Amann 2018-02-23
+
     -------------------------------------------------------------------------
     """
     
@@ -102,7 +104,7 @@ def SSGW(kd,kH2, N=2048, tol=1e-14):
             CYs = np.fft.ifft(abs(vk)*np.fft.fft(Ys)).real                         # C{ Y_s }.
             mys = -np.dot(Ys,CYs)/N/2                                              # << y_s >>.
         else:                                                                      # Finite depth.
-            C_hat  =  vk*1/np.tanh((sig*d)*vk);      C_hat[0]  = 1/(sig*d)         # Operator C in Fourier space.
+            C_hat  =  vk*1/np.tanh((sig*d)*vk);      C_hat[0]  = 1/(sig*d)         # Operator C in Fourier space. # AA: Can this line be deleted?
             S2_hat = (vk*1/np.sinh((sig*d)*vk))**2;  S2_hat[0] = 1/(sig*d)**2      # Operator S^2 in Fourier space.
             Ys_hat  = np.fft.fft(Ys)                                               
             E  = (Ys*np.fft.ifft(C_hat*Ys_hat).real).mean() + (sig-1)*d            # Equation for sigma.
@@ -110,7 +112,7 @@ def SSGW(kd,kH2, N=2048, tol=1e-14):
             sig = sig - E/dE                                                       # Newton new sigma.
             mys = (sig-1)*d                                                        # << y_s >>.
         del_ = mys - mUps                                                          # Parameter delta.
-        C_hat  =  vk*1/np.tanh((sig*d)*vk);  C_hat[0] = 1/(sig*d)                  # Updated operator C in Fourier space.
+        C_hat  =  vk*1/np.tanh((sig*d)*vk);  C_hat[0] = 1/(sig*d)                  # Updated operator C in Fourier space. 
  
         # Compute Bernoulli constant B.
         Ups2  = Ups*Ups                                                            # Upsilon^2.
@@ -228,13 +230,13 @@ def SSGW(kd,kH2, N=2048, tol=1e-14):
     print('Residual:                           res = %9i'% errfun)
     print('Iterations time (s)                time = %15.14f'% toc)
     print()
-    print('PHYSICAL PARAMETERS'               )
+    print('PHYSICAL PARAMETERS')
     print('Mean depth:                           d = %15.14e'% d)
     print('Acceleration due to gravity:          g = %15.14e'% g)
     wl =  2*np.pi/k
     print('Wavelength:                      2*pi/k = %15.14e'% wl)
     print()
-    print('WAVE CHARACTERISTICS'            )
+    print('WAVE CHARACTERISTICS')
     print('Wave height:                          H = %15.14f'% H)
     print('Crest height (amplitude):             a = %15.14f'% a)
     print('Trough height:                        b = %15.14f'% b)
@@ -244,7 +246,7 @@ def SSGW(kd,kH2, N=2048, tol=1e-14):
     print('Linear phase celerity:              c_0 = %15.14f'% sqglam)
     print('Bernoulli constant:                   B = %15.14f'% B)
     print()
-    print('INTERGRAL QUANTITIES (in the frame of reference with zero circulation)'             )
+    print('INTERGRAL QUANTITIES (in the frame of reference with zero circulation)')
     print('Impulse:                              I = %15.14f'% intI)
     print('Potential energy:                     V = %15.14f'% intV)
     print('Kinetic energy:                       K = %15.14f'% intK)
